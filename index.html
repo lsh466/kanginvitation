@@ -37,17 +37,21 @@
             transition: opacity 0.1s ease-out;
         }
 
-        /* 본문 컨테이너 */
+        /* 본문 컨테이너 - 초기 숨김 */
         .container {
             max-width: 600px;
             margin: 0 auto;
             padding: 16px;
-            transform: translateY(-100vh);
-            transition: transform 0.5s ease-out;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            visibility: hidden;
         }
 
         .container.visible {
+            opacity: 1;
             transform: translateY(0);
+            visibility: visible;
         }
 
         .title {
@@ -98,7 +102,7 @@
 
 <body>
     <div class="hero">
-        <img id="hero-img" src="test.jpeg" alt="이강 첫 생일파티">
+        <img id="hero-img" src="YOUR_COVER_IMAGE_URL" alt="이강 첫 생일파티">
     </div>
     <div class="container" id="content">
         <h1 class="title">이강의 첫 생일파티에 초대합니다 🎂</h1>
@@ -123,7 +127,7 @@
             // 이미지 불투명도 조절
             var opacity = Math.max(1 - scrollY / heroHeight, 0);
             img.style.opacity = opacity;
-            // 본문 애니메이션
+            // 본문 애니메이션 (30% 이상 스크롤 시 나타남)
             var content = document.getElementById('content');
             if (scrollY > heroHeight * 0.3) {
                 content.classList.add('visible');
