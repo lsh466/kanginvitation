@@ -6,16 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>이강의 첫 생일파티에 초대합니다</title>
     <style>
-        /* 기본 설정 */
-        body,
-        html {
+        /* 스크롤 스냅 설정 */
+        html,
+        body {
             margin: 0;
             padding: 0;
+            height: 100%;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
             font-family: "Apple SD Gothic Neo", sans-serif;
             background: #fdf6e3;
             color: #333;
             line-height: 1.5;
-            overflow-x: hidden;
+        }
+
+        section {
+            scroll-snap-align: start;
         }
 
         /* 히어로 이미지 */
@@ -37,18 +44,19 @@
             transition: opacity 0.1s ease-out;
         }
 
-        /* 본문 컨테이너 - 초기 숨김 */
-        .container {
+        /* 본문 섹션 */
+        .content {
+            min-height: 100vh;
             max-width: 600px;
             margin: 0 auto;
             padding: 16px;
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
             visibility: hidden;
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
         }
 
-        .container.visible {
+        .content.visible {
             opacity: 1;
             transform: translateY(0);
             visibility: visible;
@@ -125,17 +133,16 @@
 </head>
 
 <body>
-    <div class="hero">
+    <section class="hero">
         <img id="hero-img" src="test.jpeg" alt="이강 첫 생일파티">
-    </div>
-    <div class="container" id="content">
+    </section>
+    <section class="content" id="content">
         <h1 class="title">이강의 첫 생일파티에 초대합니다 🎂</h1>
         <div class="details">
             <p><span>일시:</span> 2025년 7월 20일 (일) 오후 2시</p>
             <p><span>장소:</span> 서울특별시 강남구 테헤란로 123, 파티하우스</p>
             <p><span>RSVP:</span> 7월 10일까지 참가 여부 알려주세요</p>
         </div>
-        <!-- 강이 자랑 갤러리 -->
         <div class="gallery">
             <img src="test.jpeg" alt="강이 사진 1">
             <img src="test1.jpeg" alt="강이 사진 2">
@@ -148,7 +155,7 @@
             <p>문의: 이승호 (010-1234-5678)</p>
             <p>즐거운 시간 함께해요!</p>
         </div>
-    </div>
+    </section>
     <script>
         window.addEventListener('scroll', function () {
             var scrollY = window.scrollY;
