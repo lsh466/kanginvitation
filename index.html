@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>이강의 첫 생일파티에 초대합니다</title>
     <style>
-        /* 모바일 최적화 컨테이너 */
+        /* 기본 설정 */
         body,
         html {
             margin: 0;
@@ -15,18 +15,39 @@
             background: #fdf6e3;
             color: #333;
             line-height: 1.5;
+            overflow-x: hidden;
         }
 
+        /* 히어로 이미지 */
+        .hero {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .hero img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 1;
+            transition: opacity 0.1s ease-out;
+        }
+
+        /* 본문 컨테이너 */
         .container {
             max-width: 600px;
             margin: 0 auto;
             padding: 16px;
+            transform: translateY(-100vh);
+            transition: transform 0.5s ease-out;
         }
 
-        .hero img {
-            width: 100%;
-            height: auto;
-            border-radius: 12px;
+        .container.visible {
+            transform: translateY(0);
         }
 
         .title {
@@ -76,10 +97,10 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="hero">
-            <img src="YOUR_COVER_IMAGE_URL" alt="이강 첫 생일파티">
-        </div>
+    <div class="hero">
+        <img id="hero-img" src="YOUR_COVER_IMAGE_URL" alt="이강 첫 생일파티">
+    </div>
+    <div class="container" id="content">
         <h1 class="title">이강의 첫 생일파티에 초대합니다 🎂</h1>
         <div class="details">
             <p><span>일시:</span> 2025년 7월 20일 (일) 오후 2시</p>
@@ -93,6 +114,24 @@
             <p>즐거운 시간 함께해요!</p>
         </div>
     </div>
+    <script>
+        window.addEventListener('scroll', function () {
+            var scrollY = window.scrollY;
+            var hero = document.querySelector('.hero');
+            var img = document.getElementById('hero-img');
+            var heroHeight = hero.offsetHeight;
+            // 이미지 불투명도 조절
+            var opacity = Math.max(1 - scrollY / heroHeight, 0);
+            img.style.opacity = opacity;
+            // 본문 애니메이션
+            var content = document.getElementById('content');
+            if (scrollY > heroHeight * 0.3) {
+                content.classList.add('visible');
+            } else {
+                content.classList.remove('visible');
+            }
+        });
+    </script>
 </body>
 
 </html>
