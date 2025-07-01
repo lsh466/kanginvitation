@@ -78,6 +78,30 @@
             color: #8b4513;
         }
 
+        /* 갤러리 스타일 */
+        .gallery {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 24px;
+        }
+
+        .gallery img {
+            flex: 0 0 auto;
+            width: 80%;
+            max-width: 260px;
+            height: auto;
+            object-fit: cover;
+            margin-right: 16px;
+            border-radius: 8px;
+            scroll-snap-align: start;
+        }
+
+        .gallery::-webkit-scrollbar {
+            display: none;
+        }
+
         .btn {
             display: block;
             width: 100%;
@@ -102,7 +126,7 @@
 
 <body>
     <div class="hero">
-        <img id="hero-img" src="YOUR_COVER_IMAGE_URL" alt="이강 첫 생일파티">
+        <img id="hero-img" src="test.jpeg" alt="이강 첫 생일파티">
     </div>
     <div class="container" id="content">
         <h1 class="title">이강의 첫 생일파티에 초대합니다 🎂</h1>
@@ -110,6 +134,13 @@
             <p><span>일시:</span> 2025년 7월 20일 (일) 오후 2시</p>
             <p><span>장소:</span> 서울특별시 강남구 테헤란로 123, 파티하우스</p>
             <p><span>RSVP:</span> 7월 10일까지 참가 여부 알려주세요</p>
+        </div>
+        <!-- 강이 자랑 갤러리 -->
+        <div class="gallery">
+            <img src="test.jpeg" alt="강이 사진 1">
+            <img src="test1.jpeg" alt="강이 사진 2">
+            <img src="test2.jpeg" alt="강이 사진 3">
+            <!-- 추가 이미지는 같은 형식으로 -->
         </div>
         <a class="btn" href="YOUR_MAP_LINK" target="_blank">네이버 지도에서 위치 보기</a>
         <a class="btn" href="tel:010-1234-5678">호스트에게 전화하기</a>
