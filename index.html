@@ -1,14 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이강의 첫 생일파티에 초대합니다</title>
+    <style>
+        /* 모바일 최적화 컨테이너 */
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: "Apple SD Gothic Neo", sans-serif;
+            background: #fdf6e3;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+
+        .hero img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+        }
+
+        .title {
+            text-align: center;
+            margin: 24px 0 16px;
+            font-size: 1.75rem;
+            font-weight: bold;
+            color: #d2691e;
+        }
+
+        .details {
+            background: #fffaf0;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+
+        .details p {
+            margin: 8px 0;
+        }
+
+        .details p span {
+            font-weight: bold;
+            color: #8b4513;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 12px 0;
+            margin: 16px 0;
+            background: #d2691e;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 0.875rem;
+            color: #666;
+            margin-top: 32px;
+        }
+    </style>
 </head>
 
 <body>
-    hello world!
+    <div class="container">
+        <div class="hero">
+            <img src="YOUR_COVER_IMAGE_URL" alt="이강 첫 생일파티">
+        </div>
+        <h1 class="title">이강의 첫 생일파티에 초대합니다 🎂</h1>
+        <div class="details">
+            <p><span>일시:</span> 2025년 7월 20일 (일) 오후 2시</p>
+            <p><span>장소:</span> 서울특별시 강남구 테헤란로 123, 파티하우스</p>
+            <p><span>RSVP:</span> 7월 10일까지 참가 여부 알려주세요</p>
+        </div>
+        <a class="btn" href="YOUR_MAP_LINK" target="_blank">네이버 지도에서 위치 보기</a>
+        <a class="btn" href="tel:010-1234-5678">호스트에게 전화하기</a>
+        <div class="footer">
+            <p>문의: 이승호 (010-1234-5678)</p>
+            <p>즐거운 시간 함께해요!</p>
+        </div>
+    </div>
 </body>
 
 </html>
