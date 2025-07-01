@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>이강의 첫 생일파티에 초대합니다</title>
     <style>
-        /* 전체 설정 */
+        /* 기본 설정 */
         html,
         body {
             margin: 0;
@@ -21,54 +21,89 @@
             line-height: 1.5;
         }
 
-        section {
+        /* 공통 중앙 컨테이너 */
+        .container {
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+            background: #fff;
+            box-sizing: border-box;
+            padding: 32px 16px;
+            text-align: center;
+            /* 각 스크린 높이와 스냅 */
+            height: 100vh;
             scroll-snap-align: start;
+            overflow: hidden;
         }
 
-        /* 히어로 이미지 (유연하게 중앙 정렬) */
+        /* 히어로 섹션 */
         .hero {
+            background: #fdf6e3;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            width: 100%;
-            background: #000;
         }
 
-        .hero img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            transition: opacity 0.2s ease-out;
+        .hero-line {
+            border: none;
+            height: 1px;
+            background: #f8b4b4;
+            margin: 0 auto;
+            width: 80%;
+            max-width: 400px;
+        }
+
+        .hero-title {
+            color: #f8b4b4;
+            font-size: 1.25rem;
+            margin: 8px 0;
+            font-weight: bold;
+        }
+
+        .hero-photo {
+            display: block;
+            margin: 16px auto;
+            width: 80%;
+            max-width: 300px;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 50% 50% 0 0;
+        }
+
+        .hero-caption span {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 4px;
+            color: #f8b4b4;
+        }
+
+        .hero-caption div {
+            font-size: 0.875rem;
+            line-height: 1.4;
+            color: #f8b4b4;
         }
 
         /* 인트로 섹션 */
         .intro {
-            background: #fff;
-            padding: 32px 16px;
-            text-align: center;
+            background: #fdf6e3;
         }
 
-        .intro .invite-title {
+        .invite-title {
             color: #f8b4b4;
             font-size: 1.5rem;
             margin-bottom: 16px;
         }
 
-        .intro .invite-text {
-            white-space: pre-wrap;
-            font-size: 1rem;
-            margin-bottom: 24px;
-            color: #333;
+        .invite-text p {
+            margin: 8px 0;
         }
 
-        .intro .save-date {
+        .save-date {
             color: #f8b4b4;
             font-size: 1.25rem;
             margin: 24px 0 16px;
         }
 
-        /* 카운트다운 스타일 */
         .countdown {
             display: flex;
             justify-content: center;
@@ -95,48 +130,72 @@
             color: #666;
         }
 
-        .intro .days-left {
+        .days-left {
             font-size: 1rem;
         }
 
-        .intro .days-left span {
+        .days-left span {
             color: #d2691e;
             font-weight: bold;
         }
 
         /* 본문 섹션 */
         .content {
-            min-height: 100vh;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 16px;
+            background: #fdf6e3;
+            overflow: hidden;
         }
 
-        .title {
-            text-align: center;
-            margin: 24px 0 16px;
-            font-size: 1.75rem;
-            font-weight: bold;
-            color: #d2691e;
-        }
-
-        .details {
-            background: #fffaf0;
-            padding: 16px;
-            border-radius: 8px;
+        .invite-info {
             margin-bottom: 24px;
         }
 
-        .details p {
-            margin: 8px 0;
+        .info-title {
+            color: #f8b4b4;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
         }
 
-        .details p span {
-            font-weight: bold;
-            color: #8b4513;
+        .info-datetime,
+        .info-location {
+            font-size: 1rem;
+            margin: 4px 0;
         }
 
-        /* 갤러리 */
+        .info-separator {
+            color: #f8b4b4;
+            font-size: 1.5rem;
+            margin: 16px 0;
+        }
+
+        .calendar {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .calendar table {
+            width: auto;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        .calendar th,
+        .calendar td {
+            padding: 4px;
+            text-align: center;
+            width: 32px;
+            height: 32px;
+        }
+
+        .calendar td.sunday {
+            color: #f8b4b4;
+        }
+
+        .calendar td.today {
+            background: #f8b4b4;
+            color: #fff;
+            border-radius: 50%;
+        }
+
         .gallery {
             display: flex;
             overflow-x: auto;
@@ -156,10 +215,6 @@
             scroll-snap-align: start;
         }
 
-        .gallery::-webkit-scrollbar {
-            display: none;
-        }
-
         .btn {
             display: block;
             width: 100%;
@@ -174,9 +229,6 @@
         }
 
         .footer {
-            text-align: center;
-            font-size: 0.875rem;
-            color: #666;
             margin-top: 32px;
         }
     </style>
@@ -185,76 +237,161 @@
 <body>
     <!-- 히어로 섹션 -->
     <section class="hero">
-        <img id="hero-img"
-            src="https://d36zg6kvpmh9c7.cloudfront.net/onboarding/invitations/babyBirthday/RpvlWF/coverImage_2025-06-30T07:43:02.365Z_wR_1_3.JPG"
-            alt="이강 첫 생일파티">
+        <div class="container">
+            <hr class="hero-line">
+            <div class="hero-title">1st birthday</div>
+            <hr class="hero-line">
+            <img class="hero-photo"
+                src="https://d36zg6kvpmh9c7.cloudfront.net/onboarding/invitations/babyBirthday/RpvlWF/coverImage_2025-06-30T07:43:02.365Z_wR_1_3.JPG"
+                alt="이강 첫 생일파티">
+            <div class="hero-caption">
+                <span>✨ 강 ✨</span>
+                <div>25.08.23 | 12:00</div>
+                <div>더블유페스타 서초점</div>
+            </div>
+        </div>
     </section>
+
     <!-- 인트로 섹션 -->
     <section class="intro">
-        <div class="invite-title">초대합니다 ❤️</div>
-        <div class="invite-text">
-            ○○이가 무럭무럭 자라
-            어느덧 첫번째 생일을 맞이하였습니다.
-            사랑과 관심으로 지켜봐주신 소중한 분들께
-            감사의 마음으로 작은 자리를 마련하였습니다.
-
-            뜻깊은 날에 소중한 발걸음 하시어
-            함께해 주시면 감사하겠습니다.
+        <div class="container">
+            <div class="invite-title">초대합니다💌</div>
+            <div class="invite-text">
+                <p>강이가 무럭무럭 자라</p>
+                <p>어느덧 첫번째 생일을 맞이하였습니다.</p>
+                <p>사랑과 관심으로 지켜봐주신 소중한 분들께</p>
+                <p>감사의 마음으로 작은 자리를 마련하였습니다.</p>
+                <p>뜻깊은 날에 소중한 발걸음 하시어</p>
+                <p>함께해 주시면 감사하겠습니다.</p>
+            </div>
+            <div class="save-date">Save the Date</div>
+            <div class="countdown">
+                <div class="countdown__item">
+                    <div class="number" id="days">0</div>
+                    <div class="label">Days</div>
+                </div>
+                <div class="countdown__item">
+                    <div class="number" id="hours">0</div>
+                    <div class="label">Hour</div>
+                </div>
+                <div class="countdown__item">
+                    <div class="number" id="minutes">0</div>
+                    <div class="label">Min</div>
+                </div>
+                <div class="countdown__item">
+                    <div class="number" id="seconds">0</div>
+                    <div class="label">Sec</div>
+                </div>
+            </div>
+            <div class="days-left">이강의 첫번째 생일이 <span id="days-left">0</span>일 남았습니다.</div>
         </div>
-        <div class="save-date">Save the Date</div>
-        <div class="countdown">
-            <div class="countdown__item">
-                <div class="number" id="days">0</div>
-                <div class="label">Days</div>
-            </div>
-            <div class="countdown__item">
-                <div class="number" id="hours">0</div>
-                <div class="label">Hour</div>
-            </div>
-            <div class="countdown__item">
-                <div class="number" id="minutes">0</div>
-                <div class="label">Min</div>
-            </div>
-            <div class="countdown__item">
-                <div class="number" id="seconds">0</div>
-                <div class="label">Sec</div>
-            </div>
-        </div>
-        <div class="days-left">이강의 첫번째 생일이 <span id="days-left">0</span>일 남았습니다.</div>
     </section>
+
     <!-- 본문 섹션 -->
     <section class="content">
-        <h1 class="title">이강의 첫 생일파티에 초대합니다 🎂</h1>
-        <div class="details">
-            <p><span>일시:</span> 2025년 8월 23일 (토) 오전 11시 30분</p>
-            <p><span>장소:</span> 더블유페스타 서초점</p>
-            <p><span>주소:</span> 서울특별시 서초구 반포대로 138 양진빌딩 지하 2층</p>
-            <p><span>RSVP:</span> 8월 10일까지 참가 여부 알려주세요</p>
-        </div>
-        <div class="gallery">
-            <img src="test.jpeg" alt="강이 사진 1">
-            <img src="test1.jpeg" alt="강이 사진 2">
-            <img src="test2.jpeg" alt="강이 사진 3">
-        </div>
-        <a class="btn" href="YOUR_MAP_LINK" target="_blank">네이버 지도에서 위치 보기</a>
-        <a class="btn" href="tel:010-1234-5678">호스트에게 전화하기</a>
-        <div class="footer">
-            <p>문의: 이승호 (010-1234-5678)</p>
-            <p>즐거운 시간 함께해요!</p>
+        <div class="container">
+            <div class="invite-info">
+                <h2 class="info-title">돌잔치 안내</h2>
+                <p class="info-datetime">2025년 8월 23일 토요일 오후 12:00</p>
+                <p class="info-location">더블유페스타 서초점</p>
+                <div class="info-separator">―</div>
+                <div class="calendar">
+                    <h3>8월</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="sunday">일</th>
+                                <th>월</th>
+                                <th>화</th>
+                                <th>수</th>
+                                <th>목</th>
+                                <th>금</th>
+                                <th>토</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>1</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td class="sunday">3</td>
+                                <td>4</td>
+                                <td>5</td>
+                                <td>6</td>
+                                <td>7</td>
+                                <td>8</td>
+                                <td>9</td>
+                            </tr>
+                            <tr>
+                                <td class="sunday">10</td>
+                                <td>11</td>
+                                <td>12</td>
+                                <td>13</td>
+                                <td>14</td>
+                                <td>15</td>
+                                <td>16</td>
+                            </tr>
+                            <tr>
+                                <td class="sunday">17</td>
+                                <td>18</td>
+                                <td>19</td>
+                                <td>20</td>
+                                <td>21</td>
+                                <td>22</td>
+                                <td class="today">23</td>
+                            </tr>
+                            <tr>
+                                <td class="sunday">24</td>
+                                <td>25</td>
+                                <td>26</td>
+                                <td>27</td>
+                                <td>28</td>
+                                <td>29</td>
+                                <td>30</td>
+                            </tr>
+                            <tr>
+                                <td class="sunday">31</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="gallery">
+                <img src="test.jpeg" alt="강이 사진 1">
+                <img src="test1.jpeg" alt="강이 사진 2">
+                <img src="test2.jpeg" alt="강이 사진 3">
+            </div>
+            <a class="btn" href="YOUR_MAP_LINK" target="_blank">네이버 지도에서 위치 보기</a>
+            <a class="btn" href="tel:010-1234-5678">호스트에게 전화하기</a>
+            <div class="footer">
+                <p>문의: 이승호 (010-1234-5678)</p>
+                <p>즐거운 시간 함께해요!</p>
+            </div>
         </div>
     </section>
-    <!-- 스크롤 및 카운트다운 스크립트 -->
+
+    <!-- 스크립트 -->
     <script>
-        // 히어로 이미지 페이드아웃
         window.addEventListener('scroll', function () {
             var scrollY = window.scrollY;
             var heroHeight = document.querySelector('.hero').offsetHeight;
-            var img = document.getElementById('hero-img');
+            var img = document.querySelector('.hero-photo');
             img.style.opacity = Math.max(1 - scrollY / heroHeight, 0);
         });
-        // 카운트다운
         (function () {
-            var target = new Date('2025-08-23T11:30:00');
+            var target = new Date('2025-08-23T12:00:00');
             function update() {
                 var now = new Date();
                 var diff = target - now;
