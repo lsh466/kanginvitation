@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>이강의 첫 생일파티에 초대합니다</title>
     <style>
-        /* 스크롤 스냅 설정 */
+        /* 전체 설정 */
         html,
         body {
             margin: 0;
@@ -25,7 +25,7 @@
             scroll-snap-align: start;
         }
 
-        /* 히어로 이미지 (자르지 않고 중앙 정렬) */
+        /* 히어로 이미지 (유연하게 중앙 정렬) */
         .hero {
             display: flex;
             justify-content: center;
@@ -40,6 +40,68 @@
             max-height: 100%;
             object-fit: contain;
             transition: opacity 0.2s ease-out;
+        }
+
+        /* 인트로 섹션 */
+        .intro {
+            background: #fff;
+            padding: 32px 16px;
+            text-align: center;
+        }
+
+        .intro .invite-title {
+            color: #f8b4b4;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+
+        .intro .invite-text {
+            white-space: pre-wrap;
+            font-size: 1rem;
+            margin-bottom: 24px;
+            color: #333;
+        }
+
+        .intro .save-date {
+            color: #f8b4b4;
+            font-size: 1.25rem;
+            margin: 24px 0 16px;
+        }
+
+        /* 카운트다운 스타일 */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .countdown__item {
+            background: #f0f0f0;
+            padding: 12px 16px;
+            border-radius: 8px;
+            min-width: 60px;
+        }
+
+        .countdown__item .number {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .countdown__item .label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            margin-top: 4px;
+            color: #666;
+        }
+
+        .intro .days-left {
+            font-size: 1rem;
+        }
+
+        .intro .days-left span {
+            color: #d2691e;
+            font-weight: bold;
         }
 
         /* 본문 섹션 */
@@ -74,7 +136,7 @@
             color: #8b4513;
         }
 
-        /* 갤러리 스타일 */
+        /* 갤러리 */
         .gallery {
             display: flex;
             overflow-x: auto;
@@ -127,6 +189,39 @@
             src="https://d36zg6kvpmh9c7.cloudfront.net/onboarding/invitations/babyBirthday/RpvlWF/coverImage_2025-06-30T07:43:02.365Z_wR_1_3.JPG"
             alt="이강 첫 생일파티">
     </section>
+    <!-- 인트로 섹션 -->
+    <section class="intro">
+        <div class="invite-title">초대합니다 ❤️</div>
+        <div class="invite-text">
+            ○○이가 무럭무럭 자라
+            어느덧 첫번째 생일을 맞이하였습니다.
+            사랑과 관심으로 지켜봐주신 소중한 분들께
+            감사의 마음으로 작은 자리를 마련하였습니다.
+
+            뜻깊은 날에 소중한 발걸음 하시어
+            함께해 주시면 감사하겠습니다.
+        </div>
+        <div class="save-date">Save the Date</div>
+        <div class="countdown">
+            <div class="countdown__item">
+                <div class="number" id="days">0</div>
+                <div class="label">Days</div>
+            </div>
+            <div class="countdown__item">
+                <div class="number" id="hours">0</div>
+                <div class="label">Hour</div>
+            </div>
+            <div class="countdown__item">
+                <div class="number" id="minutes">0</div>
+                <div class="label">Min</div>
+            </div>
+            <div class="countdown__item">
+                <div class="number" id="seconds">0</div>
+                <div class="label">Sec</div>
+            </div>
+        </div>
+        <div class="days-left">이강의 첫번째 생일이 <span id="days-left">0</span>일 남았습니다.</div>
+    </section>
     <!-- 본문 섹션 -->
     <section class="content">
         <h1 class="title">이강의 첫 생일파티에 초대합니다 🎂</h1>
@@ -148,15 +243,35 @@
             <p>즐거운 시간 함께해요!</p>
         </div>
     </section>
-    <!-- 스크롤 이벤트 스크립트 -->
+    <!-- 스크롤 및 카운트다운 스크립트 -->
     <script>
+        // 히어로 이미지 페이드아웃
         window.addEventListener('scroll', function () {
             var scrollY = window.scrollY;
             var heroHeight = document.querySelector('.hero').offsetHeight;
             var img = document.getElementById('hero-img');
-            var opacity = Math.max(1 - scrollY / heroHeight, 0);
-            img.style.opacity = opacity;
+            img.style.opacity = Math.max(1 - scrollY / heroHeight, 0);
         });
+        // 카운트다운
+        (function () {
+            var target = new Date('2025-08-23T11:30:00');
+            function update() {
+                var now = new Date();
+                var diff = target - now;
+                if (diff < 0) diff = 0;
+                var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                var minutes = Math.floor((diff / 1000 / 60) % 60);
+                var seconds = Math.floor((diff / 1000) % 60);
+                document.getElementById('days').innerText = days;
+                document.getElementById('hours').innerText = hours;
+                document.getElementById('minutes').innerText = minutes;
+                document.getElementById('seconds').innerText = seconds;
+                document.getElementById('days-left').innerText = days;
+            }
+            setInterval(update, 1000);
+            update();
+        })();
     </script>
 </body>
 
